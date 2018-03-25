@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Models;
 
@@ -40,7 +38,48 @@ namespace WebStore.Controllers
 
         public IActionResult Details(int id)
         {
-            return View(_employees.Where(x=>x.Id==id).FirstOrDefault());
+            EmployeeView employee = _employees.Where(x => x.Id == id).FirstOrDefault();
+            if (employee == null)
+                return NotFound();
+            return View(employee);
         }
+
+        public IActionResult Shop()
+        {
+            return View();
+        }
+        public IActionResult ProductDetails()
+        {
+            return View();
+        }
+        public IActionResult Login()
+        {
+            return View();
+        }
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+
+        public IActionResult Cart()
+        {
+            return View();
+        }
+        public IActionResult BlogSingle()
+        {
+            return View();
+        }
+        public IActionResult Blog()
+        {
+            return View();
+        }
+        public IActionResult NotFound()
+        {
+            return View();
+        }
     }
 }
