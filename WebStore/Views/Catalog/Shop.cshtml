@@ -1,7 +1,10 @@
 ﻿
+
+
+
+@model CatalogViewModel
 @{
-    ViewData["Title"] = "Shop";
-}
+    ViewData["Title"] = "Shop"; }
 
 <section id="advertisement">
     <div class="container">
@@ -15,9 +18,9 @@
             @await Html.PartialAsync("Partial/_LeftSideBar")
         </div>
         <div class="col-sm-9 padding-right">
-            @await Html.PartialAsync("Partial/_FeaturedItems")
+            @await Html.PartialAsync("Partial/_ProductItems", Model.Products)
             <ul class="pagination">
-                <li class="active"><a href="">1</a></li>
+                <li class="active"><a href ="">1</a></li>
                 <li><a href="">2</a></li>
                 <li><a href="">3</a></li>
                 <li><a href="">&raquo;</a></li>
@@ -25,3 +28,4 @@
         </div>
     </div>
 </section>
+
