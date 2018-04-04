@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebStore.DAL;
 using WebStore.Infrastructure.Implementations;
+using WebStore.Infrastructure.Implementations.Sql;
 using WebStore.Infrastructure.Interfaces;
 
 namespace WebStore
@@ -26,7 +29,12 @@ namespace WebStore
         {
             services.AddMvc();
             // Добавляем разрешение зависимости
-            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();            services.AddSingleton<IProductData, InMemoryProductData>();
+            services.AddSingleton<IEmployeesData, InMemoryEmployeesData>();
+            //services.AddSingleton<IProductData, InMemoryProductData>();
+
+            services.AddScoped<IProductData, SqlProductData>();
+            services.AddDbContext<WebStoreContext>(options => options.UseSqlServer(
+            Configuration.GetConnectionString("DefaultConnection")));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Implementations;
+using WebStore.Infrastructure.Implementations.Sql;
 using WebStore.Infrastructure.Interfaces;
 using WebStore.Models;
 
@@ -12,11 +13,16 @@ namespace WebStore.Controllers
 {
     public class CatalogController : Controller
     {
+        private readonly IProductData _productData;
+
+        public CatalogController(IProductData productData)
+        {
+            _productData = productData;
+        }
+
         public IActionResult Shop(int? sectionId, int? brandId)
         {
-            IProductData _productData=new InMemoryProductData();
             var products = _productData.GetProducts(new ProductFilter { BrandId = brandId, SectionId = sectionId });
-
             var model = new CatalogViewModel()
             {
                 BrandId = brandId,
