@@ -64,7 +64,7 @@ namespace WebStore
 
             //Настройки для корзины
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<ICartService, CookieCartService>();
+            services.AddScoped<ICartService, CookieCartService>();            services.AddScoped<IOrdersService, SqlOrdersService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -80,6 +80,11 @@ namespace WebStore
             //Добавляем обработку запросов в mvc-формате
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                name: "areas",
+                template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+             );
+
                 routes.MapRoute(
                 name: "default",
                 template: "{controller=Home}/{action=Index}/{id?}");
