@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using WebStore.DAL;
 using WebStore.Domain.Entities;
 using WebStore.Infrastructure.Implementations;
+using WebStore.Infrastructure.Implementations.Cart;
 using WebStore.Infrastructure.Implementations.Sql;
 using WebStore.Infrastructure.Interfaces;
 
@@ -60,6 +61,10 @@ namespace WebStore
                 options.AccessDeniedPath = "/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to / Account / AccessDenied
                 options.SlidingExpiration = true;
             });
+
+            //Настройки для корзины
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ICartService, CookieCartService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

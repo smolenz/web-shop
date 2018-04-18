@@ -419,7 +419,10 @@ namespace WebStore.Infrastructure.Implementations
             return products;
         }
 
-
+        public Product GetProductById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
